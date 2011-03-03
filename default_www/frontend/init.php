@@ -450,7 +450,6 @@ class FrontendInit
 	 */
 	private function setIncludePath()
 	{
-		// prepend the libary and document_root to the existing include path
 		set_include_path(PATH_LIBRARY . PATH_SEPARATOR . PATH_WWW . PATH_SEPARATOR . get_include_path());
 	}
 }
