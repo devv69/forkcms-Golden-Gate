@@ -7,15 +7,16 @@
  * @package		frontend
  * @subpackage	core
  *
- * @author		Tijs Verkoyen <tijs@netlash.com>
+ * @author		Tijs Verkoyen <tijs@sumocoders.be>
+ * @author		Davy Hellemans <davy@spoon-library.com>
  * @since		2.0
  */
 class Frontend
 {
 	/**
-	 * Default constructor
+	 * Class constructor.
 	 *
-	 * @return	void
+	 * @return	Frontend
 	 */
 	public function __construct()
 	{

@@ -90,6 +90,10 @@ class FrontendInit
 
 		// start session
 		$this->initSession();
+
+		// @todo this needs to be cleaned up
+		new FrontendUserTracker();
+		register_shutdown_function(array(Spoon::get('user_tracker'), 'logPageview'));
 	}
 
 
@@ -115,6 +119,7 @@ class FrontendInit
 		$exceptions['frontendbaseobject'] = FRONTEND_CORE_PATH . '/engine/base.php';
 		$exceptions['frontendblockextra'] = FRONTEND_CORE_PATH . '/engine/block.php';
 		$exceptions['frontendblockwidget'] = FRONTEND_CORE_PATH . '/engine/block.php';
+		$exceptions['frontendusertracker'] = FRONTEND_PATH . '/modules/user_tracker/engine/model.php'; // @todo needs to be moved or fixed
 
 		// is it an exception
 		if(isset($exceptions[$className])) $pathToLoad = $exceptions[$className];
