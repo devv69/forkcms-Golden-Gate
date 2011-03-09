@@ -106,6 +106,9 @@ class FrontendContactIndex extends FrontendBaseBlock
 			// no errors
 			if($this->frm->isCorrect())
 			{
+				// track data
+				$this->frm->trackData();
+
 				// get values
 				$author = $this->frm->getField('author')->getValue();
 				$email = $this->frm->getField('email')->getValue();
