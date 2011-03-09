@@ -189,7 +189,7 @@ class FrontendUserTracker
 			catch(SpoonCookieException $e)
 			{
 				// @todo reset cookie and call this method again
-				Spoon::dump('er ging iets mis bij het opvragen van de cookie...');
+				Spoon::dump('something went wrong while trying to fetch your ocokie.');
 			}
 
 			// valid identifier
@@ -202,7 +202,7 @@ class FrontendUserTracker
 				SpoonCookie::set('user_tracker_id', null);
 
 				// lets try again
-				Spoon::dump('er ging ietes mis, we proberen het opnieuw, want de waarde die we uit je cookie ophaalden stonk"' . $identifier . '".');
+				Spoon::dump('Something went wrong, while trying to fetch the stinky value from the cookie.');
 				$this->setIdentifier();
 			}
 		}
@@ -220,51 +220,5 @@ class FrontendUserTracker
 		return $this;
 	}
 }
-
-
-/*
-// status!
-if(!defined('HEADERS_404')) $status = '200';
-else $status = '404';
-
-// get cookie
-if(SpoonCookie::exists('cookie_id')) $cookieId = SpoonCookie::get('cookie_id');
-if(SpoonCookie::exists('site_id')) $siteId = SpoonCookie::get('site_id');
-
-// set cookie
-else
-{
-	$cookieId = md5(SpoonSession::getSessionId());
-	SpoonCookie::set('cookie_id', $cookieId);
-	$siteId = 1;
-	SpoonCookie::set('site_id', $siteId);
-}
-
-// create record
-$aStatistics['status'] = (string) $status;
-$aStatistics['date'] = date('Y-m-d H:i:s');
-$aStatistics['ip'] =  SpoonHTTP::getIp();
-$aStatistics['session_id'] = SpoonSession::getSessionId();
-$aStatistics['cookie_id'] = $cookieId;
-$aStatistics['site_id'] = $siteId;
-
-// get browser info if browscap is available
-if(ini_get('browscap') !== false)
-{
-	$aBrowserInfo = get_browser(null, true);
-	$aStatistics['browser_name'] = isset($aBrowserInfo['browser']) ? $aBrowserInfo['browser'] : 'unknown';
-	$aStatistics['browser_version'] = isset($aBrowserInfo['version']) ? $aBrowserInfo['version'] : 0;
-	$aStatistics['platform'] = isset($aBrowserInfo['platform']) ? $aBrowserInfo['platform'] : 'unknown';
-}
-
-// check if this is a referer or not
-if(!SpoonFilter::isInternalReferrer()) $aStatistics['referrer_url'] = $_SERVER['HTTP_REFERER'];
-
-// overwrite url & referrer
-$aStatistics['url'] = trim('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '/');
-
-// insert record
-$this->db->insert('statistics_temp', $aStatistics);
-*/
 
 ?>
