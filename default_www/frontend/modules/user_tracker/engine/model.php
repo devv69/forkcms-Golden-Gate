@@ -1,7 +1,7 @@
 <?php
 
 /**
- * In this file we store all generic functions that we will be using in the form_builder module
+ * In this file we store all generic functions that we will be using in the user tracker module
  *
  * @package		frontend
  * @subpackage	user_tracker
@@ -127,11 +127,11 @@ class FrontendUserTracker
 		$status = Spoon::get('page')->getStatusCode();
 
 		// create message
-		$message = '[id] ' . $this->getIdentifier();
-		$message .= ' [session_id] ' . SpoonSession::getSessionId();
-		$message .= ' [url] ' . 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		$message .= ' [referrer] ' . $referrer;
-		$message .= ' [status] ' . $status;
+		$message = '[id]' . $this->getIdentifier() . '[/id]';
+		$message .= ' [session_id]' . SpoonSession::getSessionId() . '[/session_id]';
+		$message .= ' [url]' . 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '[/url]';
+		$message .= ' [referrer]' . $referrer . '[/referrer]';
+		$message .= ' [status]' . $status . '[/status]';
 
 		// write to the log
 		$this->log->write($message);
