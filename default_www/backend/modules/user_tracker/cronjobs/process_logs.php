@@ -115,42 +115,35 @@ class BackendUserTrackerCronjobProcessLogs extends BackendBaseCronjob
 	 */
 	protected function processLine($value)
 	{
-		// init vars
-		$visitorIdentifier = null;
-		$visitorSession = null;
-		$url = null;
-		$referrer = null;
-		$status = null;
-
-		// fetch vars from line
-		if(preg_match('/\[id\]([a-z0-9]{32})\[\/id\]/', $value, $matches)) $visitorIdentifier = $matches[1];
-		if(preg_match('/\[session_id\]([a-z0-9]{32})\[\/session_id\]/', $value, $matches)) $visitorSession = $matches[1];
-		if(preg_match('/\[url\](.+)\[\/url\]/', $value, $matches)) $url = $matches[1];
-		if(preg_match('/\[referrer](.+)\[\/referrer\]/', $value, $matches)) $referrer = $matches[1];
-		if(preg_match('/\[status]([0-9]{3})\[\/status\]/', $value, $matches)) $status = $matches[1];
-
-		// required fields are present
-		if($visitorIdentifier !== null && $visitorSession !== null && $url !== null && $status !== null)
+		// check for json encoded string
+		if(preg_match('/\{\"id\"\:\"(.*)\}/', $value, $matches))
 		{
-			// general fields
-			$record['visitor_identifier'] = $visitorIdentifier;
-			$record['visitor_session'] = $visitorSession;
-			$record['url'] = $url;
-			$record['status'] = $status;
-			$record['added_on'] = date('Y-m-d H:i:s', strtotime(substr(trim($value), 0, 19)));
+			// decode string
+			$data = json_decode($matches[0], true);
 
-			// referrer
-			if($referrer !== null)
+			// everything is fine
+			if($data !== null && !empty($data['id']) && !empty($data['session_id']) && !empty($data['url']) && !empty($data['status']))
 			{
-				// fetch chunks
-				$referrer = parse_url($referrer);
+				// general fields
+				$record['visitor_identifier'] = $data['id'];
+				$record['visitor_session'] = $data['session_id'];
+				$record['url'] = $data['url'];
+				$record['status'] = $data['status'];
+				$record['added_on'] = BackendModel::getUTCDate('Y-m-d H:i:s', strtotime(substr(trim($value), 0, 19)));
 
-				// everything went fine?
-				if($referrer !== false || $referrer !== null)
+				// referrer
+				if(isset($data['referrer']))
 				{
-					$record['referrer_host'] = $referrer['host'];
-					$record['referrer_path'] = (isset($referrer['path'])) ? $referrer['path'] : null;
-					$record['referrer_query'] = (isset($referrer['query'])) ? $referrer['query'] : null;
+					// fetch chunks
+					$referrer = parse_url($data['referrer']);
+
+					// everything went fine?
+					if($referrer !== false || $referrer !== null  && isset($referrer['host']))
+					{
+						$record['referrer_host'] = $referrer['host'];
+						$record['referrer_path'] = (isset($referrer['path'])) ? $referrer['path'] : null;
+						$record['referrer_query'] = (isset($referrer['query'])) ? $referrer['query'] : null;
+					}
 				}
 			}
 
