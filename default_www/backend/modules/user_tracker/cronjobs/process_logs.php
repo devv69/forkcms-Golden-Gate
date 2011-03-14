@@ -138,7 +138,7 @@ class BackendUserTrackerCronjobProcessLogs extends BackendBaseCronjob
 					$referrer = parse_url($data['referrer']);
 
 					// everything went fine?
-					if($referrer !== false || $referrer !== null  && isset($referrer['host']))
+					if($referrer !== false || $referrer !== null && !empty($referrer['host']))
 					{
 						$record['referrer_host'] = $referrer['host'];
 						$record['referrer_path'] = (isset($referrer['path'])) ? $referrer['path'] : null;
