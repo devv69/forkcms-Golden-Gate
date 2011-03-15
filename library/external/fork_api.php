@@ -118,7 +118,7 @@ class ForkAPI
 			$privateKey = $this->getPrivateKey();
 
 			// validate
-			if($publicKey == '' || $privateKey == '') throw new ForkAPIException('This method ('. $method .') requires authentication, provide a public and private key.');
+			if($publicKey == '' || $privateKey == '') throw new ForkAPIException('This method (' . $method . ') requires authentication, provide a public and private key.');
 
 			// add prams
 			$queryStringParameters['public_key'] = $publicKey;
@@ -127,7 +127,7 @@ class ForkAPI
 		}
 
 		// build URL
-		$url = self::API_URL .'/'. self::API_VERSION .'/rest.php?'. http_build_query($queryStringParameters);
+		$url = self::API_URL . '/' . self::API_VERSION . '/rest.php?' . http_build_query($queryStringParameters);
 
 		// use POST?
 		if($usePOST)
@@ -148,7 +148,7 @@ class ForkAPI
 				$queryString = http_build_query(array('data' => json_encode($parameters)));
 
 				// prepend
-				$url .= '&'. $queryString;
+				$url .= '&' . $queryString;
 			}
 		}
 
@@ -239,7 +239,7 @@ class ForkAPI
 	 */
 	public function getUserAgent()
 	{
-		return (string) 'PHP ForkAPI/'. self::VERSION .' '. $this->userAgent;
+		return (string) 'PHP ForkAPI/' . self::VERSION . ' ' . $this->userAgent;
 	}
 
 
