@@ -36,6 +36,51 @@ class BackendUserTrackermodel
 		// nothing at all?
 		return false;
 	}
+
+
+	/**
+	 * Fetch all know details about this visitor.
+	 *
+	 * @return	array
+	 * @param	string $identifier
+	 */
+	public static function getVisitor($identifier)
+	{
+		// init vars
+		$identifier = (string) $identifier;
+		$visitor = array();
+		$visitor['identifier'] = $identifier;
+		$visitor['lastUpdate'] = false;
+		$visitor['lastVisit'] = false;
+
+		// fetch user data
+		$data = BackendModel::getDB()->getRecords('SELECT i.name, i.value, i.added_on, UNIX_TIMESTAMP(i.added_on) AS added_on_timestamp
+													FROM user_tracker_data AS i
+													WHERE i.id = ?
+													ORDER BY i.name ASC, i.added_on DESC', $identifier);
+
+
+		foreach($data as $record)
+		{
+			if(!isset($visitor['values'][$record['name']]['current'])) $visitor['values'][$record['name']]['current'] = @unserialize($record['value']);
+			$visitor['values'][$record['name']]['list'][] = array($record['name'] => @unserialize($record['value']));
+		}
+
+		// @todo remove this
+		Spoon::dump($visitor);
+	}
+
+
+	/**
+	 * Is there an identifier with this id that contains data?
+	 *
+	 * @return	bool
+	 * @param	string $identifier
+	 */
+	public static function hasData($identifier)
+	{
+		return (bool) BackendModel::getDB()->getVar('SELECT COUNT(id) FROM user_tracker_data WHERE id = ?', (string) $identifier);
+	}
 }
 
 ?>

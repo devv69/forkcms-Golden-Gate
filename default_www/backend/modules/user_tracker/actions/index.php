@@ -37,10 +37,16 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 		// init var
 		$parameters = array();
 
-		$query = 'SELECT *
+		// build query
+		$query = 'SELECT i.id, i.added_on, i2.value AS email
 					FROM user_tracker_data AS i
+					LEFT OUTER JOIN user_tracker_data AS i2 ON i2.name = ? AND i2.id = i.id
 					WHERE 1 = 1
+					GROUP BY i.id
 					ORDER BY i.added_on DESC';
+
+		// search for email
+		$parameters[] = 'email';
 
 		return array($query, $parameters);
 	}
@@ -60,7 +66,7 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 		//$this->setFilter();
 
 		// load form
-		$this->loadForm();
+//		$this->loadForm();
 
 		// load datagrids
 		$this->loadDataGrid();
@@ -85,6 +91,8 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 
 		// create datagrid
 		$this->datagrid = new BackendDataGridDB($query, $parameters);
+
+		$this->datagrid->addColumn('detail', 'Woojoow maatje!!!1!!!', 'Detail', '/private/nl/user_tracker/detail?id=[id]', 'Piew piew');
 	}
 
 
