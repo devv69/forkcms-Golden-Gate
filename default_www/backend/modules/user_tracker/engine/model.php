@@ -53,21 +53,80 @@ class BackendUserTrackermodel
 		$visitor['lastUpdate'] = false;
 		$visitor['lastVisit'] = false;
 
+		/*
+		 * We're going to build a list of all the values we know of this surfer. If multiple values
+		 * for a specific category exist, they will be listed accordingly.
+		 */
+
 		// fetch user data
-		$data = BackendModel::getDB()->getRecords('SELECT i.name, i.value, i.added_on, UNIX_TIMESTAMP(i.added_on) AS added_on_timestamp
-													FROM user_tracker_data AS i
-													WHERE i.id = ?
-													ORDER BY i.name ASC, i.added_on DESC', $identifier);
+		$data = (array) BackendModel::getDB()->getRecords('SELECT i.name, i.value, i.added_on, UNIX_TIMESTAMP(i.added_on) AS added_on
+															FROM user_tracker_data AS i
+															WHERE i.id = ?
+															ORDER BY i.name ASC, i.added_on DESC', $identifier);
 
-
+		// loop values
 		foreach($data as $record)
 		{
-			if(!isset($visitor['values'][$record['name']]['current'])) $visitor['values'][$record['name']]['current'] = @unserialize($record['value']);
-			$visitor['values'][$record['name']]['list'][] = array($record['name'] => @unserialize($record['value']));
+			// set name and value
+			$visitor['data'][$record['name']]['name'] = $record['name'];
+			$visitor['data'][$record['name']]['list'][] = array('value' => @unserialize($record['value']));
+
+			// last update
+			if($record['added_on'] > $visitor['lastUpdate']) $visitor['lastUpdate'] = $record['added_on'];
 		}
 
-		// @todo remove this
-		Spoon::dump($visitor);
+		// init counter
+		$i = 0;
+
+		// cleanup array keys
+		foreach($visitor['data'] as $key => $value)
+		{
+			$visitor['data'][$i] = $visitor['data'][$key];
+			unset($visitor['data'][$key]);
+			$i++;
+		}
+
+
+		/*
+		 * We're going to fetch the list of sessions for this visitor.
+		 */
+
+		// list of unique sessions
+		$sessions = (array) BackendModel::getDB()->getColumn('SELECT i.visitor_session
+																FROM user_tracker_pageviews AS i
+																WHERE i.visitor_identifier = ?
+																GROUP BY i.visitor_session
+																ORDER BY i.added_on DESC',
+																array($visitor['identifier']));
+
+		// loop unique sessions
+		foreach($sessions as $session)
+		{
+			// fetch session
+			$visits = (array) BackendModel::getDB()->getRecords('SELECT i.url, UNIX_TIMESTAMP(i.added_on) AS date, i.status
+																FROM user_tracker_pageviews AS i
+																WHERE i.visitor_session = ? AND i.visitor_identifier = ?
+																ORDER BY i.added_on ASC',
+																array($session, $visitor['identifier']));
+
+
+			// define subset
+			$currentSession['dateStart'] = $visits[0]['date'];
+			$currentSession['dateStop'] = $visits[count($visits) - 1]['date'];
+			$currentSession['visits'] = $visits;
+
+			// add to list
+			$visitor['sessions'][] = $currentSession;
+
+			// last visit
+			if($visitor['lastVisit'] === false) $visitor['lastVisit'] = $currentSession['dateStop'];
+		}
+
+		// last visited date
+		if($visitor['lastVisit'] === false) $visitor['lastVisit'] = $visitor['lastUpdate'];
+
+		// we made it!
+		return $visitor;
 	}
 
 
