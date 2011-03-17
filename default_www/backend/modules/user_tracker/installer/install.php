@@ -20,6 +20,7 @@ class UserTrackerInstall extends ModuleInstaller
 	{
 		// load install.sql
 		$this->importSQL(dirname(__FILE__) . '/data/install.sql');
+		$this->importSQL(dirname(__FILE__) . '/data/data.sql');
 
 		// add 'blog' as a module
 		$this->addModule('user_tracker', 'The blog module.');
@@ -40,6 +41,10 @@ class UserTrackerInstall extends ModuleInstaller
 		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Street', 'straat');
 		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Data', 'gegevens');
 		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Birthday', 'verjaardag');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Visits', 'bezoeken');
+		$this->insertLocale('nl', 'backend', 'core', 'lbl', 'UserTracker', 'usertracker');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'VisitorData', 'bezoekersgegevens');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'AddedOn', 'toegevoegd op');
 
 
 		// insert locale (en) @todo this needs to be revised
@@ -51,6 +56,10 @@ class UserTrackerInstall extends ModuleInstaller
 		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Street', 'street');
 		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Data', 'data');
 		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Birthday', 'birthday');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Visits', 'visits');
+		$this->insertLocale('en', 'backend', 'core', 'lbl', 'UserTracker', 'usertracker');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'VisitorData', 'visitor data');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'AddedOn', 'added on');
 	}
 }
 
