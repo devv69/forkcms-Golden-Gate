@@ -121,7 +121,7 @@ class Akismet
 		$authenticate = (bool) $authenticate;
 
 		// build url
-		$url = self::API_URL .'/'. self::API_VERSION .'/'. $url;
+		$url = self::API_URL . '/' . self::API_VERSION . '/' . $url;
 
 
 		// add key in front of url
@@ -134,7 +134,7 @@ class Akismet
 			if($apiKey == '') throw new AkismetException('Invalid API-key');
 
 			// prepend key
-			$url = str_replace('http://', 'http://'. $apiKey .'.', $url);
+			$url = str_replace('http://', 'http://' . $apiKey . '.', $url);
 		}
 
 		// add url into the parameters
@@ -255,7 +255,7 @@ class Akismet
 	 */
 	public function getUserAgent()
 	{
-		return (string) 'PHP Akismet/'. self::VERSION .' '. $this->userAgent;
+		return (string) 'PHP Akismet/' . self::VERSION . ' ' . $this->userAgent;
 	}
 
 
@@ -276,7 +276,7 @@ class Akismet
 	 * After this time the request will stop. You should handle any errors triggered by this.
 	 *
 	 * @return	void
-	 * @param	int $seconds	The timeout in seconds.
+	 * @param	int $seconds	The timeout expressed in seconds.
 	 */
 	public function setTimeOut($seconds)
 	{

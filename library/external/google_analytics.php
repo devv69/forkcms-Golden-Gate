@@ -164,7 +164,7 @@ class GoogleAnalytics
 		// try to make the call
 		try
 		{
-			$response = $this->doCall(self::API_URL .'/accounts/default', $sessionToken);
+			$response = $this->doCall(self::API_URL . '/accounts/default', $sessionToken);
 		}
 
 		// catch possible exception
@@ -198,7 +198,7 @@ class GoogleAnalytics
 			// build array
 			$profile['id'] = (string) $entry->id;
 			$profile['title'] = (string) $entry->title;
-			$profile['tableId'] = 'ga:'. (string) $entry->tableId;
+			$profile['tableId'] = 'ga:' . (string) $entry->tableId;
 
 			// loop properties and save them
 			foreach($entry->property as $property) $profile[(string) $property['name']] = (string) $property['value'];
@@ -238,20 +238,20 @@ class GoogleAnalytics
 		$parameters = (array) $parameters;
 
 		// build url
-		$URL = self::API_URL .'/data?ids='. $this->tableId;
-		$URL .= '&metrics='. implode(',', $metrics);
-		$URL .= '&start-date='. $startDate;
-		$URL .= '&end-date='. $endDate;
-		$URL .= '&dimensions='. implode(',', $dimensions);
+		$URL = self::API_URL . '/data?ids=' . $this->tableId;
+		$URL .= '&metrics=' . implode(',', $metrics);
+		$URL .= '&start-date=' . $startDate;
+		$URL .= '&end-date=' . $endDate;
+		$URL .= '&dimensions=' . implode(',', $dimensions);
 
 		// add parameters
 		if(count($parameters) > 0)
 		{
 			// loop them and combine key and urlencoded value (but don't encode the colons)
-			foreach($parameters as $key => $value) $parameters[$key] = $key .'='. str_replace('%3A', ':', urlencode($value));
+			foreach($parameters as $key => $value) $parameters[$key] = $key . '=' . str_replace('%3A', ':', urlencode($value));
 
 			// append to array
-			$URL .= '&'. implode('&', $parameters);
+			$URL .= '&' . implode('&', $parameters);
 		}
 
 		// do the call

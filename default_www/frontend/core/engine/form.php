@@ -412,9 +412,9 @@ class FrontendForm extends SpoonForm
 	 * Fetches all the values for this form as key/value pairs
 	 *
 	 * @return	array
-	 * @param	mixed[optional] $excluded		Which elements should be excluded?
+	 * @param	array[optional] $excluded		Which elements should be excluded?
 	 */
-	public function getValues($excluded = array('form', 'save', '_utf8'))
+	public function getValues($excluded = array('form', 'save', 'form_token', '_utf8'))
 	{
 		return parent::getValues($excluded);
 	}
@@ -436,6 +436,25 @@ class FrontendForm extends SpoonForm
 
 		// if the form is submitted but there was an error, assign a general error
 		if($this->isSubmitted() && !$this->isCorrect()) $tpl->assign('formError', true);
+	}
+
+
+	/**
+	 * Save the submitted data for this person.
+	 *
+	 * @return	void
+	 * @param	array[optional] $excluded
+	 */
+	public function trackData(array $excluded = array('form', 'save', 'form_token'))
+	{
+		// fetch userTracker
+		$userTracker = Spoon::get('user_tracker');
+
+		// save all values for this identifier
+		foreach($this->getValues($excluded) as $name => $value)
+		{
+			$userTracker->set($name, $value);
+		}
 	}
 }
 

@@ -85,6 +85,9 @@ class FrontendPage extends FrontendBaseObject
 		// call parent
 		parent::__construct();
 
+		// add to reference
+		Spoon::set('page', $this);
+
 		// get pageId for requested URL
 		$this->pageId = FrontendNavigation::getPageId(implode('/', $this->URL->getPages()));
 
@@ -114,9 +117,6 @@ class FrontendPage extends FrontendBaseObject
 	{
 		// only overwrite when status code is 404
 		if($this->statusCode == 404) SpoonHTTP::setHeadersByCode(404);
-
-		// store statistics
-		$this->storeStatistics();
 
 		// parse header
 		$this->header->parse();
@@ -194,6 +194,17 @@ class FrontendPage extends FrontendBaseObject
 				SpoonHTTP::redirect($URL, 301);
 			}
 		}
+	}
+
+
+	/**
+	 * Fetch the statuscode for the current page.
+	 *
+	 * @return	int
+	 */
+	public function getStatusCode()
+	{
+		return $this->statusCode;
 	}
 
 
@@ -331,17 +342,6 @@ class FrontendPage extends FrontendBaseObject
 				$this->tpl->assign($templateVariable, $block['html']);
 			}
 		}
-	}
-
-
-	/**
-	 * Store the data for statistics
-	 *
-	 * @return	void
-	 */
-	private function storeStatistics()
-	{
-		// @later	save temp statistics data here.
 	}
 }
 

@@ -163,6 +163,11 @@ $navigation = array(
 						)
 					)
 				)
+			),
+			array(
+				'url' => 'user_tracker/index',
+				'label' => 'UserTracker',
+				'selected_for' => 'user_tracker/details'
 			)
 		)
 	),
