@@ -42,7 +42,7 @@
 		</div>
 		<div class="options">
 			{iteration:visitor.sessions}
-				<strong>Session from {$visitor.sessions.dateStart|date:'Y-m-d H:i'} until {$visitor.sessions.dateStop|date:'Y-m-d H:i'}</strong><br />
+				<strong>{$visitor.sessions.dateStart|date:'Y-m-d H:i'} =&gt; {$visitor.sessions.dateStop|date:'Y-m-d H:i'}</strong><br />
 				<ul>
 					{iteration:visitor.sessions.visits}
 						<li>{$visitor.sessions.visits.date|formatdatetime} - {$visitor.sessions.visits.url} - {$visitor.sessions.visits.status}</li>

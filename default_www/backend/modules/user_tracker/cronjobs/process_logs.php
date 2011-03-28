@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Cronjob that imports the log files.
+ * Cronjob that processes the logs.
  *
  * @package		backend
  * @subpackage	user_tracker
@@ -145,13 +145,13 @@ class BackendUserTrackerCronjobProcessLogs extends BackendBaseCronjob
 						$record['referrer_query'] = (isset($referrer['query'])) ? $referrer['query'] : null;
 					}
 				}
+
+				// insert into db
+				BackendModel::getDB()->insert('user_tracker_pageviews', $record);
+
+				// reset
+				unset($record);
 			}
-
-			// insert into db
-			BackendModel::getDB()->insert('user_tracker_pageviews', $record);
-
-			// reset
-			unset($record);
 		}
 	}
 }

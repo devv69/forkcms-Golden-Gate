@@ -47,7 +47,7 @@ class FrontendUserTracker
 
 		// init log
 		$this->log = new SpoonLog('visitors', FRONTEND_FILES_PATH . '/user_tracker');
-		$this->log->setMaxLogSize(55);
+		$this->log->setMaxLogSize(15);
 	}
 
 
@@ -135,6 +135,9 @@ class FrontendUserTracker
 
 		// write to the log
 		$this->log->write($message);
+
+		// self
+		return $this;
 	}
 
 

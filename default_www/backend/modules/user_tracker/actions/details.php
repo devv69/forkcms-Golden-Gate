@@ -43,10 +43,10 @@ class BackendUserTrackerDetails extends BackendBaseAction
 			// call parent, this will probably add some general CSS/JS or other required files
 			parent::execute();
 
-			// get all data for the item we want to edit
+			// get all data
 			$this->getData();
 
-			// parse the datagrid
+			// parse the page
 			$this->parse();
 
 			// display the page
@@ -60,7 +60,6 @@ class BackendUserTrackerDetails extends BackendBaseAction
 
 	/**
 	 * Get the data
-	 * If a revision-id was specified in the URL we load the revision and not the actual data.
 	 *
 	 * @return	void
 	 */
@@ -75,29 +74,14 @@ class BackendUserTrackerDetails extends BackendBaseAction
 
 
 	/**
-	 * Parse the form
+	 * Parse the page.
 	 *
 	 * @return	void
 	 */
 	protected function parse()
 	{
-		// map custom modifier
-		$this->tpl->mapModifier('tolabel', array(__CLASS__, 'toLabel'));
-
 		// record
 		$this->tpl->assign('visitor', $this->record);
-	}
-
-
-	/**
-	 * Convert this string into a well formed label.
-	 *
-	 * @return	string
-	 * @param	string $value
-	 */
-	public static function toLabel($value)
-	{
-		return ucfirst(BL::lbl(SpoonFilter::toCamelCase($value, '_', false)));
 	}
 }
 

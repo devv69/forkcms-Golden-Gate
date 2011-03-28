@@ -9,7 +9,7 @@
  * @author		Davy Hellemans <davy@spoon-library.com>
  * @since		2.1
  */
-class BackendUserTrackermodel
+class BackendUserTrackerModel
 {
 	/**
 	 * Fetch the name of the oldest logfile.
@@ -42,7 +42,7 @@ class BackendUserTrackermodel
 	 * Fetch all know details about this visitor.
 	 *
 	 * @return	array
-	 * @param	string $identifier
+	 * @param	string $identifier		The unique identifier (hash) for this visitor.
 	 */
 	public static function getVisitor($identifier)
 	{
@@ -134,7 +134,7 @@ class BackendUserTrackermodel
 	 * Is there an identifier with this id that contains data?
 	 *
 	 * @return	bool
-	 * @param	string $identifier
+	 * @param	string $identifier		The unique identifier (hash) for this visitor.
 	 */
 	public static function hasData($identifier)
 	{

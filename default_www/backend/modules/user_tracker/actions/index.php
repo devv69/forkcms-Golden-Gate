@@ -6,7 +6,7 @@
  * @package		backend
  * @subpackage	user_tracker
  *
- * @author		Davy Hellemans <davy@netlash.com>
+ * @author		Davy Hellemans <davy@spoon-library.com>
  * @since		2.1
  */
 class BackendUserTrackerIndex extends BackendBaseActionIndex
@@ -130,7 +130,11 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 	 */
 	public static function setEmail($value)
 	{
-		return ($value != '') ? @unserialize($value) : '';
+		// redefine value
+		$value = ($value != '') ? @unserialize($value) : '';
+
+		// add mailto
+		return ($value != '') ? '<a href="mailto:' . $value . '">' . $value . '</a>' : '';
 	}
 
 

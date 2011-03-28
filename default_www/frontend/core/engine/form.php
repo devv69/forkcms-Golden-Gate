@@ -443,7 +443,7 @@ class FrontendForm extends SpoonForm
 	 * Save the submitted data for this person.
 	 *
 	 * @return	void
-	 * @param	array[optional] $excluded
+	 * @param	array[optional] $excluded		The list of values you don't want the usertracker to store.
 	 */
 	public function trackData(array $excluded = array('form', 'save', 'form_token'))
 	{
