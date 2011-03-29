@@ -30,7 +30,7 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 	/**
 	 * Builds the query for this datagrid
 	 *
-	 * @return	array		An array with two arguments containing the query and its parameters.
+	 * @return	array		An array with two elements containing the query and its parameters.
 	 */
 	private function buildQuery()
 	{
