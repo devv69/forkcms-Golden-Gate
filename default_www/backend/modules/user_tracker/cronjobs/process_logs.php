@@ -91,7 +91,7 @@ class BackendUserTrackerCronjobProcessLogs extends BackendBaseCronjob
 				while(!feof($handle))
 				{
 					// fetch line
-					$line = fgets($handle, 4096);
+					$line = fgets($handle);
 
 					// process
 					$this->processLine($line);
