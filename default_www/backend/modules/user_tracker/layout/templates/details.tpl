@@ -11,7 +11,7 @@
 
 <div class="box">
 	<div class="heading">
-		<h3>{$lblGeneral|ucfirst}</h3>
+		<h3>{$lblSummary|ucfirst}</h3>
 	</div>
 	<div class="options">
 		<p><strong>{$lblUniqueId|ucfirst}:</strong> {$visitor.identifier}</p>
@@ -22,7 +22,7 @@
 
 <div class="box">
 	<div class="heading">
-		<h3>{$lblData|ucfirst}</h3>
+		<h3>{$lblVisitorDetails|ucfirst}</h3>
 	</div>
 	<div class="options">
 		{option:visitor.data}
