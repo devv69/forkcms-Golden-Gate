@@ -26,7 +26,9 @@ class BackendUserTrackerCronjobProcessLogs extends BackendBaseCronjob
 	 */
 	protected function cleanupDatabase()
 	{
-		// everything older than 4 weeks is deleted
+		// everything older than 4 weeks is deleted (except if we have data)
+
+		// @todo don't delete for people that we have data for. you can do this with a join.
 		BackendModel::getDB(true)->delete('user_tracker_pageviews', 'added_on < ?', array(SpoonDate::getDate('Y-m-d H:i:s', strtotime('-4 week'))));
 	}
 

@@ -20,10 +20,9 @@ class UserTrackerInstall extends ModuleInstaller
 	{
 		// load install.sql
 		$this->importSQL(dirname(__FILE__) . '/data/install.sql');
-		$this->importSQL(dirname(__FILE__) . '/data/data.sql');
 
-		// add 'blog' as a module
-		$this->addModule('user_tracker', 'The blog module.');
+		// add module
+		$this->addModule('user_tracker', 'The usertracker module.');
 
 		// module rights
 		$this->setModuleRights(1, 'user_tracker');
@@ -32,34 +31,24 @@ class UserTrackerInstall extends ModuleInstaller
 		$this->setActionRights(1, 'user_tracker', 'index');
 		$this->setActionRights(1, 'user_tracker', 'details');
 
-		// insert locale (nl) @todo this needs to be revised
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'UniqueId', 'uniek id');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'LastDataUpdate', 'laatste aanpassing gegevens');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'LastVisit', 'laatste bezoek');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'City', 'stad');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Gender', 'geslacht');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Street', 'straat');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Data', 'gegevens');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Birthday', 'verjaardag');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'Visits', 'bezoeken');
+		// insert locale (nl)
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'DateLastVisit', 'datum laatste bezoek');
 		$this->insertLocale('nl', 'backend', 'core', 'lbl', 'UserTracker', 'usertracker');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'VisitorData', 'bezoekersgegevens');
-		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'AddedOn', 'toegevoegd op');
+		$this->insertLocale('nl', 'backend', 'core', 'lbl', 'Unknown', 'onbekend');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'VisitorDetails', 'bezoekersgegevens');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'NumberOfActions', 'aantal acties');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'NumberOfPageviews', 'aantal paginaweergaves');
+		$this->insertLocale('nl', 'backend', 'user_tracker', 'lbl', 'NumberOfVisits', 'aantal bezoeken');
 
 
-		// insert locale (en) @todo this needs to be revised
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'UniqueId', 'uniek id');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'LastDataUpdate', 'last data update');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'LastVisit', 'last visit');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'City', 'city');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Gender', 'gender');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Street', 'street');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Data', 'data');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Birthday', 'birthday');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'Visits', 'visits');
+		// insert locale (en)
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'DateLastVisit', 'date last visit');
 		$this->insertLocale('en', 'backend', 'core', 'lbl', 'UserTracker', 'usertracker');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'VisitorData', 'visitor data');
-		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'AddedOn', 'added on');
+		$this->insertLocale('en', 'backend', 'core', 'lbl', 'Unknown', 'unknown');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'VisitorDetails', 'visitor details');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'NumberOfActions', 'number of actions');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'NumberOfPageviews', 'number of pageviews');
+		$this->insertLocale('en', 'backend', 'user_tracker', 'lbl', 'NumberOfVisits', 'number of visits');
 	}
 }
 

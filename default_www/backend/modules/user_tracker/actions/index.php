@@ -37,17 +37,24 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 		// init var
 		$parameters = array();
 
-		// @todo some filters need to be added (conform locale module)
-
 		// build query
-		$query = 'SELECT i.id, i.added_on, i2.value AS email
-					FROM user_tracker_data AS i
-					LEFT OUTER JOIN user_tracker_data AS i2 ON i2.name = ? AND i2.id = i.id
-					GROUP BY i.id
-					ORDER BY i.added_on DESC';
+		$query = 'SELECT i.id,
+						UNIX_TIMESTAMP(i.added_on) AS added_on,
+						i2.value AS email,
+						i3.value AS name,
+						COUNT(DISTINCT(utp.visitor_session)) AS num_visits,
+						COUNT(DISTINCT(utp.id)) AS num_pageviews,
+						COUNT(DISTINCT(i.added_on)) AS num_actions
+				FROM user_tracker_data AS i
+				LEFT OUTER JOIN user_tracker_pageviews AS utp ON utp.visitor_identifier = i.id
+				LEFT OUTER JOIN user_tracker_data AS i2 ON i2.name = ? AND i2.id = i.id
+				LEFT OUTER JOIN user_tracker_data AS i3 ON i3.name = ? AND i3.id = i.id
+				GROUP BY i.id
+				ORDER BY i.added_on DESC';
 
 		// search for email
 		$parameters[] = 'email';
+		$parameters[] = 'name';
 
 		// query + parameters
 		return array($query, $parameters);
@@ -94,8 +101,13 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 		// create datagrid
 		$this->datagrid = new BackendDataGridDB($query, $parameters);
 
-		// show correct e-mail address
+		// labels
+		$this->datagrid->setHeaderLabels(array('added_on' => ucfirst(BL::lbl('DateLastVisit'))));
+
+		// column functions
 		$this->datagrid->setColumnFunction(array(__CLASS__, 'setEmail'), '[email]', 'email', true);
+		$this->datagrid->setColumnFunction(array(__CLASS__, 'setName'), '[name]', 'name', true);
+		$this->datagrid->setColumnFunction(array('BackendDatagridFunctions', 'getLongDate'), array('[added_on]'), 'added_on', true);
 
 		// add column
 		$this->datagrid->addColumn('detail', null, 'Details', BackendModel::createURLForAction('details') . '&id=[id]');
@@ -152,6 +164,18 @@ class BackendUserTrackerIndex extends BackendBaseActionIndex
 		$this->filter['type'] = $this->getParameter('type');
 		$this->filter['name'] = $this->getParameter('name');
 		$this->filter['value'] = $this->getParameter('value');
+	}
+
+
+	/**
+	 * Unserializes data if it was set.
+	 *
+	 * @return	string
+	 * @param	string $value
+	 */
+	public static function setName($value)
+	{
+		return ($value != '') ? @unserialize($value) : '';
 	}
 }
 

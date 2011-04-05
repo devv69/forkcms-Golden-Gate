@@ -43,6 +43,10 @@ class BackendUserTrackerDetails extends BackendBaseAction
 			// call parent, this will probably add some general CSS/JS or other required files
 			parent::execute();
 
+			// replay browser
+			$this->header->addJavascript('replay.js');
+			$this->header->addCSS('details.css');
+
 			// get all data
 			$this->getData();
 
@@ -82,6 +86,9 @@ class BackendUserTrackerDetails extends BackendBaseAction
 	{
 		// record
 		$this->tpl->assign('visitor', $this->record);
+
+		// custom modifier
+		$this->tpl->mapModifier('jsonencode', 'json_encode');
 	}
 }
 

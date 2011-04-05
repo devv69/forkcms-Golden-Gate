@@ -47,11 +47,15 @@ class BackendUserTrackerModel
 	public static function getVisitor($identifier)
 	{
 		// init vars
+		$db = BackendModel::getDB();
 		$identifier = (string) $identifier;
 		$visitor = array();
 		$visitor['identifier'] = $identifier;
 		$visitor['lastUpdate'] = false;
 		$visitor['lastVisit'] = false;
+		$visitor['numVisits'] = $db->getVar('SELECT COUNT(DISTINCT(visitor_session)) FROM user_tracker_pageviews WHERE visitor_identifier = ?', $identifier);
+		$visitor['numPageviews'] = $db->getVar('SELECT COUNT(id) FROM user_tracker_pageviews WHERE visitor_identifier = ?', $identifier);
+		$visitor['numActions'] = $db->getVar('SELECT COUNT(DISTINCT(added_on)) FROM user_tracker_data WHERE id = ?', $identifier);
 
 		/*
 		 * We're going to build a list of all the values we know of this surfer. If multiple values
@@ -86,6 +90,9 @@ class BackendUserTrackerModel
 			$i++;
 		}
 
+		// reset
+		$i = 1;
+
 
 		/*
 		 * We're going to fetch the list of sessions for this visitor.
@@ -103,7 +110,7 @@ class BackendUserTrackerModel
 		foreach($sessions as $session)
 		{
 			// fetch session
-			$visits = (array) BackendModel::getDB()->getRecords('SELECT i.url, UNIX_TIMESTAMP(i.added_on) AS date, i.status
+			$visits = (array) BackendModel::getDB()->getRecords('SELECT i.url, i.referrer_host, i.referrer_path, i.referrer_query, UNIX_TIMESTAMP(i.added_on) AS date, i.status
 																FROM user_tracker_pageviews AS i
 																WHERE i.visitor_session = ? AND i.visitor_identifier = ?
 																ORDER BY i.added_on ASC',
@@ -111,15 +118,22 @@ class BackendUserTrackerModel
 
 
 			// define subset
+			$currentSession['counter'] = $i;
 			$currentSession['dateStart'] = $visits[0]['date'];
 			$currentSession['dateStop'] = $visits[count($visits) - 1]['date'];
 			$currentSession['visits'] = $visits;
+			$currentSession['referrerHost'] = $visits[0]['referrer_host'];
+			$currentSession['referrerPath'] = $visits[0]['referrer_path'];
+			$currentSession['referrerQuery'] = $visits[0]['referrer_query'];
 
 			// add to list
 			$visitor['sessions'][] = $currentSession;
 
 			// last visit
 			if($visitor['lastVisit'] === false) $visitor['lastVisit'] = $currentSession['dateStop'];
+
+			// update counter
+			$i++;
 		}
 
 		// last visited date
