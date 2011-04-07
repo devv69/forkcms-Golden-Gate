@@ -48,6 +48,9 @@ class FrontendUserTracker
 		// init log
 		$this->log = new SpoonLog('visitors', FRONTEND_FILES_PATH . '/user_tracker');
 		$this->log->setMaxLogSize(15);
+
+		// set identifier
+		$this->setIdentifier();
 	}
 
 
