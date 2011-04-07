@@ -49,7 +49,7 @@
 				<div>
 					{option:!visitor.sessions.referrerHost}<p><strong>{$lblReferrer|ucfirst}</strong>: {$lblUnknown}</p>{/option:!visitor.sessions.referrerHost}
 					{option:visitor.sessions.referrerHost}
-						<p><strong>{$lblReferrer|ucfirst}</strong>: <a href="http://{$visitor.sessions.referrerHost}{option:visitor.sessions.referrerPath}{$visitor.sessions.referrerPath}{/option:visitor.sessions.referrerPath}{option:visitor.sessions.referrerQuery}{$visitor.sessions.referrerQuery}{/option:visitor.sessions.referrerQuery}">http://{$visitor.sessions.referrerHost}{option:visitor.sessions.referrerPath}{$visitor.sessions.referrerPath}{/option:visitor.sessions.referrerPath}{option:visitor.sessions.referrerQuery}{$visitor.sessions.referrerQuery}{/option:visitor.sessions.referrerQuery}</a></p>
+						<p><strong>{$lblReferrer|ucfirst}</strong>: <a href="http://{$visitor.sessions.referrerHost}{option:visitor.sessions.referrerPath}{$visitor.sessions.referrerPath}{/option:visitor.sessions.referrerPath}{option:visitor.sessions.referrerQuery}?{$visitor.sessions.referrerQuery}{/option:visitor.sessions.referrerQuery}">http://{$visitor.sessions.referrerHost}{option:visitor.sessions.referrerPath}{$visitor.sessions.referrerPath}{/option:visitor.sessions.referrerPath}{option:visitor.sessions.referrerQuery}{$visitor.sessions.referrerQuery}{/option:visitor.sessions.referrerQuery}</a></p>
 					{/option:visitor.sessions.referrerHost}
 				</div>
 
