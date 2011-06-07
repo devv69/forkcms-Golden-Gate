@@ -31,7 +31,7 @@
 				{option:!block12IsHTML}
 					<div id="headerSearch">
 						<h4>{$lblSearch|ucfirst}</h4>
-						{include:{$block12}}
+						{$block12}
 					</div>
 				{/option:!block12IsHTML}
 
@@ -67,7 +67,7 @@
 						{/option:block4}
 					{/option:block4IsHTML}
 					{option:!block4IsHTML}
-						{include:{$block4}}
+						{$block4}
 					{/option:!block4IsHTML}
 
 					{* Block 5 (default: Widget) *}
@@ -83,7 +83,7 @@
 						{/option:block5}
 					{/option:block5IsHTML}
 					{option:!block5IsHTML}
-						{include:{$block5}}
+						{$block5}
 					{/option:!block5IsHTML}
 
 					{* Block 6 (default: Widget) *}
@@ -99,7 +99,7 @@
 						{/option:block6}
 					{/option:block6IsHTML}
 					{option:!block6IsHTML}
-						{include:{$block6}}
+						{$block6}
 					{/option:!block6IsHTML}
 
 					&nbsp;
@@ -127,7 +127,7 @@
 						{/option:block1}
 					{/option:block1IsHTML}
 					{option:!block1IsHTML}
-						{include:{$block1}}
+						{$block1}
 					{/option:!block1IsHTML}
 
 					{* Block 2 (default: Editor) *}
@@ -143,7 +143,7 @@
 						{/option:block2}
 					{/option:block2IsHTML}
 					{option:!block2IsHTML}
-						{include:{$block2}}
+						{$block2}
 					{/option:!block2IsHTML}
 
 					{* Block 3 (default: Editor) *}
@@ -159,7 +159,7 @@
 						{/option:block3}
 					{/option:block3IsHTML}
 					{option:!block3IsHTML}
-						{include:{$block3}}
+						{$block3}
 					{/option:!block3IsHTML}
 
 					&nbsp;
@@ -180,7 +180,7 @@
 						{/option:block7}
 					{/option:block7IsHTML}
 					{option:!block7IsHTML}
-						{include:{$block7}}
+						{$block7}
 					{/option:!block7IsHTML}
 
 					{* Block 8 (default: Widget) *}
@@ -196,7 +196,7 @@
 						{/option:block8}
 					{/option:block8IsHTML}
 					{option:!block8IsHTML}
-						{include:{$block8}}
+						{$block8}
 					{/option:!block8IsHTML}
 
 					{* Block 9 (default: Widget) *}
@@ -212,7 +212,7 @@
 						{/option:block9}
 					{/option:block9IsHTML}
 					{option:!block9IsHTML}
-						{include:{$block9}}
+						{$block9}
 					{/option:!block9IsHTML}
 
 					&nbsp;
@@ -261,23 +261,15 @@
 				{option:!block11IsHTML}
 					<aside id="footerSearch">
 						<h4>{$lblSearch|ucfirst}</h4>
-						{include:{$block11}}
+						{$block11}
 					</aside>
 				{/option:!block11IsHTML}
 
 				{* Block 10 (default: Social Media Content Block) *}
-				{option:block10IsHTML}
-					{option:block10}
-					<aside id="footerSocial">
-						<h4>{$lblSocialMedia|ucfirst}</h4>
-						{$block10}
-					</aside>
-					{/option:block10}
-				{/option:block10IsHTML}
 				{option:!block10IsHTML}
 					<aside id="footerSocial">
 						<h4>{$lblSocialMedia|ucfirst}</h4>
-						{include:{$block10}}
+						{$block10}
 					</aside>
 				{/option:!block10IsHTML}
 

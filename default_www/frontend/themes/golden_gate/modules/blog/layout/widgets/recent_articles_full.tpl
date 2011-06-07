@@ -29,7 +29,7 @@
 		 					</header>
 							<div class="bd">
 								<p>Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus...</p>
-								<p class="clearfix"><a href="#" class="blueButton">Read more</a></p>
+								<p class="clearfix"><a <a href="{$widgetBlogRecentArticlesFull.full_url}" title="{$widgetBlogRecentArticlesFull.title}" class="blueButton">Read more</a></p>
 							</div>
 						</div>
 					</article>

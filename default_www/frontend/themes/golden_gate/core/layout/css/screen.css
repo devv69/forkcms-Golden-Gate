@@ -971,6 +971,7 @@ p.floatedImage {
 		box-shadow: 0 2px 0 #ccd7dd;
 		padding: 10px 10px 0 10px;
 		font-size: 11px;
+		margin-bottom: 32px;
 	}
 
 		#main .sideNoticeMod .inner {
@@ -1166,7 +1167,14 @@ p.floatedImage {
 
 	/* Side navigation */
 
-	.sideNavigation {
+	.sideNavigation h4 {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+		text-indent: -9999px;
+	}
+
+	.sideNavigation ul {
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
 		border-radius: 5px;
@@ -1182,15 +1190,8 @@ p.floatedImage {
 		padding: 10px;
 	}
 
-	.sideNavigation:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-	.ie6 .sideNavigation, .ie7 .sideNavigation { zoom: 1; }
-
-		.sideNavigation h4 {
-			position: absolute;
-			top: -9999px;
-			left: -9999px;
-			text-indent: -9999px;
-		}
+		.sideNavigation ul:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+		.ie6 .sideNavigation ul, .ie7 .sideNavigation ul { zoom: 1; }
 
 		.sideNavigation li {
 			border-bottom: 1px solid #83bfd9;

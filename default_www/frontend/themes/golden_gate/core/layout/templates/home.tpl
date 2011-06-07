@@ -31,7 +31,7 @@
 				{option:!block12IsHTML}
 					<div id="headerSearch">
 						<h4>{$lblSearch|ucfirst}</h4>
-						{include:{$block12}}
+						{$block12}
 					</div>
 				{/option:!block12IsHTML}
 
@@ -70,7 +70,7 @@
 					{/option:block2}
 				{/option:block2IsHTML}
 				{option:!block2IsHTML}
-					{include:{$block2}}
+					{$block2}
 				{/option:!block2IsHTML}
 
 				{option:block3}{option:block4}{option:block5}
@@ -105,7 +105,7 @@
 						{/option:block4IsHTML}
 						{option:!block4IsHTML}
 							<div class="col col-4">
-								{include:{$block4}}
+								{$block4}
 								&nbsp;
 							</div>
 						{/option:!block4IsHTML}
@@ -124,7 +124,7 @@
 						{/option:block5IsHTML}
 						{option:!block5IsHTML}
 							<div class="col col-4 lastCol">
-								{include:{$block4}}
+								{$block4}
 								&nbsp;
 							</div>
 						{/option:!block5IsHTML}
@@ -170,7 +170,7 @@
 						{/option:block7IsHTML}
 						{option:!block7IsHTML}
 							<div class="col col-4">
-								{include:{$block7}}
+								{$block7}
 								&nbsp;
 							</div>
 						{/option:!block7IsHTML}
@@ -189,7 +189,7 @@
 						{/option:block8IsHTML}
 						{option:!block8IsHTML}
 							<div class="col col-4 lastCol">
-								{include:{$block8}}
+								{$block8}
 								&nbsp;
 							</div>
 						{/option:!block8IsHTML}
@@ -216,7 +216,7 @@
 					{/option:block9}
 				{/option:block9IsHTML}
 				{option:!block9IsHTML}
-					{include:{$block9}}
+					{$block9}
 				{/option:!block9IsHTML}
 
 			</div>
@@ -262,23 +262,15 @@
 				{option:!block11IsHTML}
 					<aside id="footerSearch">
 						<h4>{$lblSearch|ucfirst}</h4>
-						{include:{$block11}}
+						{$block11}
 					</aside>
 				{/option:!block11IsHTML}
 
 				{* Block 10 (default: Social Media Content Block) *}
-				{option:block10IsHTML}
-					{option:block10}
-					<aside id="footerSocial">
-						<h4>{$lblSocialMedia|ucfirst}</h4>
-						{$block10}
-					</aside>
-					{/option:block10}
-				{/option:block10IsHTML}
 				{option:!block10IsHTML}
 					<aside id="footerSocial">
 						<h4>{$lblSocialMedia|ucfirst}</h4>
-						{include:{$block10}}
+						{$block10}
 					</aside>
 				{/option:!block10IsHTML}
 
